@@ -89,6 +89,8 @@ public class PortugueseWordTokenizer extends WordTokenizer {
   private static final Pattern NEARBY_HYPHENS_PATTERN = Pattern.compile("([\\p{L}])-([\\p{L}])-([\\p{L}])", Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
   private static final String NEARBY_HYPHENS_REPL = "$1" + HYPHEN_SUBST + "$2" + HYPHEN_SUBST + "$3";
 
+  private final String PT_TOKENISING_CHARS = getTokenizingCharacters() + "⌈⌋″";
+
   public PortugueseWordTokenizer() {
     tagger = new PortugueseTagger();
   }
@@ -133,7 +135,7 @@ public class PortugueseWordTokenizer extends WordTokenizer {
     }
 
     List<String> tokenList = new ArrayList<>();
-    StringTokenizer st = new StringTokenizer(text, getTokenizingCharacters(), true);
+    StringTokenizer st = new StringTokenizer(text, PT_TOKENISING_CHARS, true);
     while (st.hasMoreElements()) {
       String token = st.nextToken();
       token = token.replace(DECIMAL_COMMA_SUBST, ',');
